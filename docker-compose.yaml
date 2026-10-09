@@ -5,9 +5,10 @@ networks:
         driver: bridge
         name: bda-network
 
+# ** secondary_namenode_data no lo permite, cambiado el guión bajo _ por guión medio - 
 volumes:
     namenode_data:
-    secondary_namenode_data:
+    secondary-namenode_data:
     datanode1_data:
     datanode2_data:
     datanode3_data:
@@ -113,10 +114,10 @@ services:
         profiles: ["storage", "pipeline"]
 
 
-    secondary_namenode:
+    secondary-namenode:
         image: apache/hadoop:3.5.0
-        container_name: secondary_namenode
-        hostname: secondary_namenode
+        container_name: secondary-namenode
+        hostname: secondary-namenode
         user: root
         networks:
             - bda-network
@@ -127,7 +128,7 @@ services:
         depends_on:
             - namenode
         volumes:
-            - secondary_namenode_data:/opt/hadoop/hadoop_data/hdfs/secondary_namenode
+            - secondary-namenode_data:/opt/hadoop/hadoop_data/hdfs/secondary-namenode
             # --- Bind Mount carpeta data de nuestro host ---
             - ./data:/opt/hadoop/shared_data
         command: ["hdfs", "secondarynamenode"]
